@@ -1,0 +1,24 @@
+services:
+  # название сервиса 
+  churn-app:  
+    # указываем путь к .env файлу с переменными окружения
+    env_file:
+      - ./.env
+    
+    # собираем образ помощью Dockerfile
+    build:
+      dockerfile: Dockerfile
+
+    # перенаправляем порты
+    # используем переменные из .env файла
+    ports:
+      - "${APP_VM_PORT}:${APP_DOCKER_PORT}"
+    # # указываем тома
+    volumes:
+        # тип тома 
+      - type: bind
+        # директория на ВМ
+        source: ./models
+        # директория в контейнере
+        target: /churn_app/models
+        #
